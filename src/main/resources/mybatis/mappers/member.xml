@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+	<!-- 로그인 -->
+	<select id="selectByIdPw" resultType="com.javaex.vo.MemberVo" parameterType="com.javaex.vo.MemberVo">
+		<![CDATA[
+			select no, name, address, gender, hp, age, trainer_no as trainerNo
+			from member
+			where id= #{id}
+			and password=#{password}
+		]]>
+	</select>
+
+	<!-- 로그인 성공 -->
+	<select id="selectOneByNo" resultType="com.javaex.vo.MemberVo">
+		<![CDATA[ 
+			select
+				m.name,
+				m.gender,
+				m.hp,
+    			i.register_date as registerDate,
+    			i.remain_date as remainDate,
+    			i.pt_count as ptCount
+			from member m, info i
+			where m.no = #{no}
+		]]>
+	</select>
+	
+	<!-- 로그인 후 회원정보 수정 -->
+	
+
+</mapper>
