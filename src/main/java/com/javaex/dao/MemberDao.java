@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.javaex.vo.MemberVo;
 
-
 @Repository
 public class MemberDao {
 
@@ -20,12 +19,29 @@ public class MemberDao {
 		return authUser;
 	}
 
-	// 로그인 후 로그인 성공한 멤버 페이지
+	// 회원가입
+	public int join(MemberVo memberVo) {
+		System.out.println("MemberDao.userModify()");
+		int count = sqlSession.insert("member.join", memberVo);
+		System.out.println(count);
+		return count;
+	}
+
+	// id 중복체크
+	public int check(String id) {
+		System.out.println("MemberDao.userModify()");
+		int count = sqlSession.selectOne("member.idCheck", id);
+		System.out.println(count);
+		return count;
+	}
+
+	// 로그인 후 로그인 성공한 멤버 페이지 + 수정폼
 	public MemberVo memberSelectOneByNo(int no) {
 
 		System.out.println("MemberDao.memberSelectOneByNo()");
-
+		System.out.println(no);
 		MemberVo memberVo = sqlSession.selectOne("member.selectOneByNo", no);
+		System.out.println(memberVo);
 		return memberVo;
 	}
 
@@ -34,7 +50,7 @@ public class MemberDao {
 
 		System.out.println("MemberDao.memberUpdate()");
 		int count = sqlSession.update("member.update", memberVo);
-
+		System.out.println(count);
 		return count;
 	}
 }

@@ -12,8 +12,23 @@
 		]]>
 	</select>
 
-	<!-- 로그인 성공 -->
-	<select id="selectOneByNo" resultType="com.javaex.vo.MemberVo">
+	<!-- 회원가입 -->
+	<insert id="join" parameterType="com.javaex.vo.MemberVo">
+		<![CDATA[
+			insert into member
+			values(null, #{id}, #{password},#{name}, #{address}, #{gender}, #{hp}, #{age}, null)
+		]]>
+	</insert>
+
+	<!-- 아이디 중복체크 -->
+	<select id="idCheck" resultType="int" parameterType="String">
+		<![CDATA[
+			select count(id) from member where id=#{id}
+		]]>
+	</select>
+
+	<!-- 로그인 성공 + 회원정보수정폼 -->
+	<select id="selectOneByNo" parameterType="int" resultType="com.javaex.vo.MemberVo">
 		<![CDATA[ 
 			select
 				m.name,
@@ -26,8 +41,23 @@
 			where m.no = #{no}
 		]]>
 	</select>
-	
+
+
+
 	<!-- 로그인 후 회원정보 수정 -->
-	
+	<update id="update" parameterType="com.javaex.vo.MemberVo">
+		<![CDATA[ 
+		update member m join info i on m.no = i.no
+        set
+            m.name = #{name},
+            m.gender = #{gender},
+            m.hp = #{hp},
+            i.register_date = #{registerDate},
+            i.remain_date = #{remainDate},
+            i.pt_count = #{ptCount}
+         where m.no = #{no};
+		]]>
+	</update>
+
 
 </mapper>
