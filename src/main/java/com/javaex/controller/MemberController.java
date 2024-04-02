@@ -47,7 +47,7 @@ public class MemberController {
 	}
 
 	// 아이디 중복체크
-	@PutMapping("/api/member/join")
+	@PostMapping("/api/member/idcheck")
 	public int idCheck(@RequestBody MemberVo memberVo) {
 		System.out.println("MemberController.idCheck()");
 		System.out.println(memberVo);

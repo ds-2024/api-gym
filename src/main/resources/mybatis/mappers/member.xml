@@ -2,6 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
+
+
+	<!-- 회원가입 -->
+	<insert id="join" parameterType="com.javaex.vo.MemberVo">
+		<![CDATA[
+			insert into member
+			values(null, #{id}, #{password}, #{name}, #{address}, #{gender}, #{hp}, #{age}, #{lockerNo}, #{period}, #{approval})
+		]]>
+	</insert>
+
+	<!-- 아이디 중복체크 -->
+	<select id="idCheck" resultType="int" parameterType="String">
+		<![CDATA[
+			select count(id) from member where id= #{id}
+		]]>
+	</select>
+
 	<!-- 로그인 -->
 	<select id="selectByIdPw" resultType="com.javaex.vo.MemberVo" parameterType="com.javaex.vo.MemberVo">
 		<![CDATA[
@@ -9,21 +26,6 @@
 			from member
 			where id= #{id}
 			and password=#{password}
-		]]>
-	</select>
-
-	<!-- 회원가입 -->
-	<insert id="join" parameterType="com.javaex.vo.MemberVo">
-		<![CDATA[
-			insert into member
-			values(null, #{id}, #{password},#{name}, #{address}, #{gender}, #{hp}, #{age}, null)
-		]]>
-	</insert>
-
-	<!-- 아이디 중복체크 -->
-	<select id="idCheck" resultType="int" parameterType="String">
-		<![CDATA[
-			select count(id) from member where id=#{id}
 		]]>
 	</select>
 

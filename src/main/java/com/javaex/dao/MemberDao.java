@@ -30,6 +30,7 @@ public class MemberDao {
 	// id 중복체크
 	public int check(String id) {
 		System.out.println("MemberDao.userModify()");
+		System.out.println(id);
 		int count = sqlSession.selectOne("member.idCheck", id);
 		System.out.println(count);
 		return count;
