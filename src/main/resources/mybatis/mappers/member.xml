@@ -35,7 +35,16 @@
 	<!-- 로그인 성공(로그인 후 메인 화면) + 회원정보수정폼 -->
 	<select id="selectMemberInfo" resultType="com.javaex.vo.MemberVo" parameterType="int">
 		<![CDATA[
-			select m.password, m.name, m.hp, m.age, m.address, g.reg_date as regDate, g.deadline, p.pt_count as ptCount, t.name as trainerName, m.locker_no as lockerNo
+			select  m.id,
+					m.password, 
+					m.name, 
+					m.hp, m.age, 
+					m.address, 
+					g.reg_date as regDate, 
+					g.deadline, 
+					p.pt_count as ptCount, 
+					t.name as trainerName, 
+					m.locker_no as lockerNo
 			from member m
 			left join general g on m.no = g.no
 			left join pt p on m.no = p.no
