@@ -67,6 +67,9 @@
 		where no = #{no};
 		]]>
 	</update>
+	
+	<!-- 회원정보 + 해당회원의 lesson 정보 -->
+	
 
 
 </mapper>
