@@ -58,7 +58,7 @@ public class MemberController {
 	}
 
 	// 로그인 후 로그인 성공한 멤버 페이지(1명 데이터 가져오기)
-	@GetMapping(value = "/api/member/login")
+	@GetMapping(value = "/api/member/main")
 	public JsonResult afterlogin(HttpServletRequest request) {
 		System.out.println("MemberController.afterlogin()");
 
@@ -71,10 +71,14 @@ public class MemberController {
 		// System.out.println("token=" + token);
 
 		// 토큰을 사용하여 사용자 인증 및 회원 정보 가져오기
-		MemberVo memberVo = memberService.exeGetMemberInfo(no);
-
-		return JsonResult.success(memberVo);
-
+		if (no != -1) {
+			MemberVo memberInfo= memberService.exeMemberInfo(no);
+			System.out.println(memberInfo);
+			return JsonResult.success(memberInfo);
+		} else {
+			// 토큰이 없거나(로그인상태 아님) 변조된 경우
+			return JsonResult.fail("fail");
+		}
 	}
 
 	// 수정폼(1명 데이터 가져오기)
@@ -91,7 +95,7 @@ public class MemberController {
 		// System.out.println("token=" + token);
 
 		// 토큰을 사용하여 사용자 인증 및 회원 정보 가져오기
-		MemberVo memberVo = memberService.exeGetMemberInfo(no);
+		MemberVo memberVo = memberService.exeModifyForm(no);
 
 		return JsonResult.success(memberVo);
 

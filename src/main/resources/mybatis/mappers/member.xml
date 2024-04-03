@@ -12,6 +12,7 @@
 		]]>
 	</insert>
 
+
 	<!-- 아이디 중복체크 -->
 	<select id="idCheck" resultType="int" parameterType="String">
 		<![CDATA[
@@ -19,45 +20,42 @@
 		]]>
 	</select>
 
+
 	<!-- 로그인 -->
 	<select id="selectByIdPw" resultType="com.javaex.vo.MemberVo" parameterType="com.javaex.vo.MemberVo">
 		<![CDATA[
-			select no, name, address, gender, hp, age, trainer_no as trainerNo
+			select no,name, address, gender, hp, age, locker_no as lockerNo
 			from member
 			where id= #{id}
 			and password=#{password}
 		]]>
 	</select>
 
-	<!-- 로그인 성공 + 회원정보수정폼 -->
-	<select id="selectOneByNo" parameterType="int" resultType="com.javaex.vo.MemberVo">
-		<![CDATA[ 
-			select
-				m.name,
-				m.gender,
-				m.hp,
-    			i.register_date as registerDate,
-    			i.remain_date as remainDate,
-    			i.pt_count as ptCount
-			from member m, info i
+
+	<!-- 로그인 성공(로그인 후 메인 화면) + 회원정보수정폼 -->
+	<select id="selectMemberInfo" resultType="com.javaex.vo.MemberVo" parameterType="int">
+		<![CDATA[
+			select m.name, g.reg_date as regDate, g.deadline, p.pt_count as ptCount, t.name as trainerName, m.locker_no as lockerNo
+			from member m
+			left join general g on m.no = g.no
+			left join pt p on m.no = p.no
+			left join trainer t on p.trainer_no = t.trainer_no
 			where m.no = #{no}
 		]]>
 	</select>
 
-
-
+	
 	<!-- 로그인 후 회원정보 수정 -->
 	<update id="update" parameterType="com.javaex.vo.MemberVo">
-		<![CDATA[ 
-		update member m join info i on m.no = i.no
-        set
-            m.name = #{name},
-            m.gender = #{gender},
-            m.hp = #{hp},
-            i.register_date = #{registerDate},
-            i.remain_date = #{remainDate},
-            i.pt_count = #{ptCount}
-         where m.no = #{no};
+		<![CDATA[
+		update member
+		set
+        	password = #{password},
+        	name = #{name},
+        	hp = #{hp},
+        	age = #{age},
+        	address = #{address}
+		where no = #{no};
 		]]>
 	</update>
 

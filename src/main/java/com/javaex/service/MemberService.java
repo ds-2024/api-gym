@@ -34,7 +34,7 @@ public class MemberService {
 	}
 
 	// 로그인 후 로그인 성공한 멤버 페이지
-	public MemberVo exeGetMemberInfo(int no) {
+	public MemberVo exeMemberInfo(int no) {
 		System.out.println("MemberService.exeGetMemberInfo()");
 
 		MemberVo memberVo = memberDao.memberSelectOneByNo(no);
